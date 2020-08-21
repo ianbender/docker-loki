@@ -1,0 +1,26 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://127.0.0.1:3100/loki/api/v1/push
+
+scrape_configs:
+ - job_name: your-job
+   pipeline_stages:
+     # Add pipeline stages for log parsing
+     - labels:
+         action:
+         status_code:
+   static_configs:
+     - targets:
+       - localhost
+       labels:
+         job: your-job
+         env: dev
+         __path__: /log/{job}/*log
+
+ # Other configs here as needed

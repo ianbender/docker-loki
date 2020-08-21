@@ -1,0 +1,22 @@
+version: "3.4"
+
+services:
+  loki:
+    image: grafana/loki:1.6.0
+    command: -config.file=/etc/loki/config.yaml
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki:/etc/loki
+    network_mode: host
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana:/var/lib/grafana
+    network_mode: host
+
+volumes:
+  grafana:
